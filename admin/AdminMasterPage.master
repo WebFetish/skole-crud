@@ -8,11 +8,10 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="../Content/StyleSheet.css" rel="stylesheet" />
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="padding-top: 70px;">
     <form id="form1" runat="server">
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
