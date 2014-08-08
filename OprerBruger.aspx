@@ -15,7 +15,7 @@
                 <asp:TextBox ID="TextBox_Email" runat="server" placeholder="Brugernes Email" CssClass="form-control" MaxLength="128" required="required" TextMode="Email"></asp:TextBox>
             </div>
 
-            <div class="form-group" ">
+            <div class="form-group">
                 <label for="TextBox_Password">Kodeord</label>
                 <asp:TextBox ID="TextBox_Password" runat="server" placeholder="Kodeord" CssClass="form-control" MaxLength="40" TextMode="Password"></asp:TextBox>
                 <asp:CompareValidator ID="CompareValidator_Passwords" runat="server" Display="Dynamic" ErrorMessage="<p class='alert alert-danger'>De to kodeord er ikke ens</p>" ControlToValidate="TextBox_Password" ControlToCompare="TextBox_Password_Repeat"></asp:CompareValidator>
