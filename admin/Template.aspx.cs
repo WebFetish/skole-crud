@@ -56,7 +56,7 @@ public partial class Template : System.Web.UI.Page
         {
             Panel_List.Visible = true;
             var cmd = new SqlCommand();
-            var conn = new SqlConnection(Class.ConnectionString);
+            var conn = new SqlConnection(MyConnectionString.ConnectionString);
             cmd.Connection = conn;
             cmd.CommandText = "SELECT * FROM " + TableNavn + " ORDER BY " + TableId + " DESC";
 
@@ -107,7 +107,7 @@ public partial class Template : System.Web.UI.Page
         try
         {
             var cmd = new SqlCommand(); // Standard connection til din database.
-            var conn = new SqlConnection(Class.ConnectionString); // Class.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring
+            var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring
             cmd.Connection = conn;
             cmd.CommandText = "DELETE FROM " + TableNavn + " WHERE " + TableId + " = @id";
             cmd.Parameters.AddWithValue("@id", id);
@@ -131,7 +131,7 @@ public partial class Template : System.Web.UI.Page
         {
             try
             {
-                SqlConnection conn = new SqlConnection(Class.ConnectionString);
+                SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
                 SqlCommand cmd = new SqlCommand(@"SELECT * FROM " + TableNavn + " WHERE " + TableId + " = @id", conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -157,7 +157,7 @@ public partial class Template : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-//            SqlConnection conn = new SqlConnection(Class.ConnectionString);
+//            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
 //            SqlDataAdapter adapter = new SqlDataAdapter(@"
 //            SELECT * FROM " + TableNavn + " ORDER BY " + TableId + " DESC", conn);
 //            DataTable items = new DataTable();
@@ -176,7 +176,7 @@ public partial class Template : System.Web.UI.Page
     {
         try
         {
-            SqlConnection conn = new SqlConnection(Class.ConnectionString);
+            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
 

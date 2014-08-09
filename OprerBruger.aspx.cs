@@ -15,7 +15,7 @@ public partial class Admin_OprerBruger : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlConnection conn = new SqlConnection(Class.ConnectionString);
+            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
             SqlDataAdapter adapter = new SqlDataAdapter(@"
             SELECT rolle_id, rolle_title
             FROM rolle
@@ -59,7 +59,7 @@ public partial class Admin_OprerBruger : System.Web.UI.Page
                 hash.Append(hashedDataBytes[i].ToString("X2"));
 
             var cmd = new SqlCommand();
-            var conn = new SqlConnection(Class.ConnectionString);
+            var conn = new SqlConnection(MyConnectionString.ConnectionString);
             cmd.Connection = conn;
             cmd.CommandText = cmd.CommandText = "INSERT INTO bruger (bruger_navn, bruger_email, bruger_password, bruger_salt, fk_rolle_id, bruger_dato) VALUES (@1, @2, @3, @4, @5, @6)";
             cmd.Parameters.AddWithValue("@1", TextBox_Name.Text);

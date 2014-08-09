@@ -8,9 +8,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 /// <summary>
-/// Summary description for Class
+/// Summary description for MyConnectionString
 /// </summary>
-public class Class
+public class MyConnectionString
 {
     public static string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
 }

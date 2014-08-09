@@ -69,7 +69,7 @@ public partial class Admin_Kontakt : System.Web.UI.Page
         {
             Panel_List.Visible = true;
             var cmd = new SqlCommand();
-            var conn = new SqlConnection(Class.ConnectionString);
+            var conn = new SqlConnection(MyConnectionString.ConnectionString);
             cmd.Connection = conn;
             cmd.CommandText = "SELECT * FROM " + TableNavn + " INNER JOIN Emne ON emne_id = kontakt_emne_fk ORDER BY " + TableId + " DESC";
 
@@ -122,7 +122,7 @@ public partial class Admin_Kontakt : System.Web.UI.Page
     {
         try
         {
-            SqlConnection conn = new SqlConnection(Class.ConnectionString);
+            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
             SqlCommand cmd = new SqlCommand("DELETE FROM " + TableNavn + " WHERE " + TableId + " = @id", conn);
             cmd.Parameters.AddWithValue("@id", id);
 
@@ -145,7 +145,7 @@ public partial class Admin_Kontakt : System.Web.UI.Page
         {
             try
             {
-                SqlConnection conn = new SqlConnection(Class.ConnectionString);
+                SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
                 SqlCommand cmd = new SqlCommand(@"SELECT * FROM " + TableNavn + " WHERE " + TableId + " = @id", conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -174,7 +174,7 @@ public partial class Admin_Kontakt : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlConnection conn = new SqlConnection(Class.ConnectionString);
+            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
             SqlDataAdapter adapter = new SqlDataAdapter(@"
                         SELECT * FROM Emne ORDER BY emne_id DESC", conn);
             DataTable items = new DataTable();
@@ -193,7 +193,7 @@ public partial class Admin_Kontakt : System.Web.UI.Page
     {
         try
         {
-            SqlConnection conn = new SqlConnection(Class.ConnectionString);
+            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
             bool fejl = false;
