@@ -26,7 +26,7 @@
                     <ul class="nav navbar-nav">
                         <% // Her tilføjer du et menupunkt. %>
                         <% Response.Write(MenuItem("Default.aspx", "<span class=\'glyphicon glyphicon-home\'></span> Forside", 50)); %>
-                        <% Response.Write(MenuItem("Kontakt.aspx", "<span class=\'glyphicon glyphicon-book\'></span> Kontakt", 100)); %>
+                        <% Response.Write(MenuItem("Nyheder.aspx", "<span class=\'glyphicon glyphicon-book\'></span> Nyheder", 100)); %>
                         <% Response.Write(MenuItem("../Login.aspx?action=logud", "<span class=\'glyphicon glyphicon-off\'></span> Log af", 50, "return confirm(\"Er du sikker på at du vil logge af?\")")); %>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
