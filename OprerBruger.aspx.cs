@@ -55,7 +55,7 @@ public partial class Admin_OprerBruger : System.Web.UI.Page
             fejl = true; // Fortæller en der er sket en fejl så den ikke prøve og tilføje brugeren.
             eEmail.Attributes.Add("class", "form-group has-error");// Gør TexBoxen rød så man kan se at det er den der er problemet.
         }
-        if (!fejl) // Hvis der ikke sker en fejl så skal den udf
+        if (!fejl) // Hvis der ikke sker en fejl så skal den udfører dette.
         {
             var salt = Guid.NewGuid().ToString(); // Opretter et salt som er unique som bruges til at tilføje efter koden.
             var password = TextBox_Password.Text; // Tager koden som er indtastet i texboxen.
