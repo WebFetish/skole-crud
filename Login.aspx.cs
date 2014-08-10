@@ -30,8 +30,8 @@ public partial class Login : System.Web.UI.Page
         var salt = "";
         string kode = "";
         SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring.
-        SqlCommand cmd = new SqlCommand(); // Standard connection til din database.
-        cmd.Connection = conn;
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = conn; // Standard connection til din database.
         
         cmd.CommandText = @"
             SELECT bruger_id, bruger_navn, bruger_email, bruger_password, bruger_salt, rolle_adgang
