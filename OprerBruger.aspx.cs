@@ -67,7 +67,7 @@ public partial class Admin_OprerBruger : System.Web.UI.Page
                 hash.Append(hashedDataBytes[i].ToString("X2")); // Her laver vi bytesne om til Hexadecimal.
 
             var cmd = new SqlCommand();
-            var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring
+            var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring.
             cmd.Connection = conn; // Standard connection til din database.
             cmd.CommandText = cmd.CommandText = "INSERT INTO bruger (bruger_navn, bruger_email, bruger_password, bruger_salt, fk_rolle_id, bruger_dato) VALUES (@1, @2, @3, @4, @5, @6)"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
             cmd.Parameters.AddWithValue("@1", TextBox_Name.Text); // Dit parameter som laver sikkerhed for sql injection.

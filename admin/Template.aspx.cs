@@ -153,7 +153,7 @@ public partial class Template : System.Web.UI.Page
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    // TODO Tilføj alle textboxe!
+                    // TODO Tilføj alle dine textboxe!
                     TextBoxNavn.Text = reader[""].ToString(); // Her ændre du Textboxen som skal have indholdet som du henter, og ændre din reader. Du kopirer denne linje for flerer.
                 }
                 conn.Close();
