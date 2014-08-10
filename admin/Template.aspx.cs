@@ -11,11 +11,14 @@ public partial class Template : System.Web.UI.Page
     public string TableId = ""; // navnet på dit table id, ex når du skal slettet et item.
     public string SideNavn = ""; // Sidens navn så når man bliver redirected at du kommer på den rigtige side.
     public int RolleAdgang = 100; // Om brugeren har adgang til at tilgå denne side, du har angivet denne værdi i din db.
-    // På linje 72 og 82 skal du tilføje din felter som skal vises på listen som giver et overblik over hvad du kan ændre.
-    // På linje 140 skal du tilføje hvilke ting der skal læses fra din db til dine textboxe, så når du ændre siden at den henter teksten.
-    // På linje 167 og 173 skal du tilføje til din commandtext hvilke felter du har i din db.
-    // På linje 179 skal du tilføje dine parameter du skal bruge i din commandtext.
 
+    /// <summary>
+    /// Først skal du tilføje dine textboxe som du skal bruge til at tilføje tingen du vil lave crud til.
+    /// På linje 72 og 82 skal du tilføje din felter som skal vises på listen som giver et overblik over hvad du kan ændre.
+    /// På linje 140 skal du tilføje hvilke ting der skal læses fra din db til dine textboxe, så når du ændre siden at den henter teksten.
+    /// På linje 167 og 173 skal du tilføje til din commandtext hvilke felter du har i din db.
+    /// På linje 179 skal du tilføje dine parameter du skal bruge i din commandtext.
+    /// </summary>
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = SideNavn + " - Adminside"; // Titlen på siden
@@ -28,7 +31,7 @@ public partial class Template : System.Web.UI.Page
                 case "add":
                     Panel_Form.Visible = true; // Viser tilføj opret siden.
                     break;
-
+                    
                 case "edit":
                     Panel_Form.Visible = true; // Viser rediger siden.
                     HentItem(Request.QueryString["id"]); // Kalder på denne så den kan indsætte teksten i dine tekstboxe.
@@ -50,7 +53,10 @@ public partial class Template : System.Web.UI.Page
         }
     }
 
-    private void HentRepeater() // Her henter du hvad der skal ud på selve oversigten af siden.
+    /// <summary>
+    /// Her henter du hvad der skal ud på selve oversigten af siden.
+    /// </summary>
+    private void HentRepeater()
     {
         try
         {
@@ -102,19 +108,22 @@ public partial class Template : System.Web.UI.Page
         }
     }
 
-    private void SletItem(string id) // Her sletter du det id som bliver sendt til den. 
+    /// <summary>
+    /// Her sletter du det id som bliver sendt til den.
+    /// </summary>
+    /// <param name="id">Det id der skal slettes</param>
+    private void SletItem(string id)
     {
         try
         {
-            var cmd = new SqlCommand(); // Standard connection til din database.
+            var cmd = new SqlCommand(); 
             var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring
-            cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM " + TableNavn + " WHERE " + TableId + " = @id";
+            cmd.Connection = conn; // Standard connection til din database.
+            cmd.CommandText = "DELETE FROM " + TableNavn + " WHERE " + TableId + " = @id"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
             cmd.Parameters.AddWithValue("@id", id);
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            conn.Open(); // Åbner din connection så så du kan Execute og få din data ud.
+            cmd.ExecuteNonQuery(); // Gør hvad du fortæller den skal gøre som står i din CommandText.
+            conn.Close(); // Lukker din connection så den ved at du ikke skal bruge mere data.
 
             Session["besked"] = Navn + " blev slettet";
             Response.Redirect(ResolveClientUrl("~/Admin/" + SideNavn + ".aspx"));
@@ -125,7 +134,12 @@ public partial class Template : System.Web.UI.Page
             Label_Error.Text = ex.Message + " <strong>SletItem(), " + SideNavn + ".aspx.cs</strong>";
         }
     }
-    private void HentItem(string id) // Her henter du teksten som skal i dine texboxe når du er på rediger siden.
+
+    /// <summary>
+    /// Her henter du teksten som skal i dine texboxe når du er på rediger siden.
+    /// </summary>
+    /// <param name="id">Dette er hvilket item som skal hentes</param>
+    private void HentItem(string id)
     {
         if (!IsPostBack)
         {
@@ -153,6 +167,9 @@ public partial class Template : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Her er hvis du skal bruge en dropdown menu til at vælge noget.
+    /// </summary>
     private void Dropdown()
     {
         if (!IsPostBack)
@@ -172,7 +189,10 @@ public partial class Template : System.Web.UI.Page
         }
     }
 
-    protected void Button_Save_Click(object sender, EventArgs e) // når du opretter eller redigere kalder du denne, og her indsætter du det i din db.
+    /// <summary>
+    /// når du opretter eller redigere kalder du denne, og her indsætter du det i din db. 
+    /// </summary>
+    protected void Button_Save_Click(object sender, EventArgs e) 
     {
         try
         {
