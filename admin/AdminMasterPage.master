@@ -1,8 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMasterPage.master.cs" Inherits="AdminMasterPage" ClientIDMode="Static" %>
-
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -26,6 +24,7 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
+                        <% // Her tilføjer du et menupunkt. %>
                         <% Response.Write(MenuItem("Default.aspx", "<span class=\'glyphicon glyphicon-home\'></span> Forside", 50)); %>
                         <% Response.Write(MenuItem("Kontakt.aspx", "<span class=\'glyphicon glyphicon-book\'></span> Kontakt", 100)); %>
                         <% Response.Write(MenuItem("../Login.aspx?action=logud", "<span class=\'glyphicon glyphicon-off\'></span> Log af", 50, "return confirm(\"Er du sikker på at du vil logge af?\")")); %>
