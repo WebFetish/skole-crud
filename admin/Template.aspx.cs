@@ -9,7 +9,7 @@ public partial class Template : System.Web.UI.Page
     public string TableNavn = ""; // Dit table navn.
     public string Navn = ""; // Dette er hvad der bliver oprettet/slettet ex. "Personen" blev oprettet.
     public string TableId = ""; // navnet på dit table id, ex når du skal slettet et item.
-    public string SideNavn = ""; // Sidens navn så når man bliver redirected at du kommer på den rigtige side.
+    public string SideNavn = ""; // Sidens navn så når man bliver redirected at du kommer på den rigtige side (der skal ikke være .aspx på).
     public int RolleAdgang = 100; // Om brugeren har adgang til at tilgå denne side, du har angivet denne værdi i din db.
 
     /// <summary>
@@ -62,12 +62,12 @@ public partial class Template : System.Web.UI.Page
         {
             Panel_List.Visible = true;
             var cmd = new SqlCommand();
-            var conn = new SqlConnection(MyConnectionString.ConnectionString);
-            cmd.Connection = conn;
-            cmd.CommandText = "SELECT * FROM " + TableNavn + " ORDER BY " + TableId + " DESC";
+            var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring.
+            cmd.Connection = conn; // Standard connection til din database.
+            cmd.CommandText = "SELECT * FROM " + TableNavn + " ORDER BY " + TableId + " DESC"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
 
-            conn.Open();
-            var reader = cmd.ExecuteReader();
+            conn.Open(); // Åbner din connection så så du kan Execute og få din data ud.
+            var reader = cmd.ExecuteReader();  // Gør hvad du fortæller den skal gøre som står i din CommandText.
             var builder = new StringBuilder();
             builder.Append("<table class='table table-striped table-hover'>").AppendLine();
             builder.Append("<thead>").AppendLine();
@@ -89,7 +89,7 @@ public partial class Template : System.Web.UI.Page
                 builder.Append("<td>" + reader[""] + "</td>").AppendLine(); // Her skal du så tilføje samme antal som du har af overskrifter, hvor det bare henter det fra db. og du skal også bare kopiere denne linje for flere.
                 builder.Append("</tr>").AppendLine();
             }
-            conn.Close();
+            conn.Close(); // Lukker din connection så den ved at du ikke skal bruge mere data.
 
             builder.Append("</tbody>").AppendLine();
             builder.Append("<tfoot>").AppendLine();
@@ -117,10 +117,10 @@ public partial class Template : System.Web.UI.Page
         try
         {
             var cmd = new SqlCommand(); 
-            var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring
+            var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring.
             cmd.Connection = conn; // Standard connection til din database.
             cmd.CommandText = "DELETE FROM " + TableNavn + " WHERE " + TableId + " = @id"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
-            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@id", id); // Dit parameter som laver sikkerhed for sql injection.
             conn.Open(); // Åbner din connection så så du kan Execute og få din data ud.
             cmd.ExecuteNonQuery(); // Gør hvad du fortæller den skal gøre som står i din CommandText.
             conn.Close(); // Lukker din connection så den ved at du ikke skal bruge mere data.
@@ -145,18 +145,20 @@ public partial class Template : System.Web.UI.Page
         {
             try
             {
-                SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM " + TableNavn + " WHERE " + TableId + " = @id", conn);
-                cmd.Parameters.AddWithValue("@id", id);
+                var cmd = new SqlCommand();
+                var conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring.
+                cmd.Connection = conn; // Standard connection til din database.
+                cmd.CommandText = "SELECT * FROM " + TableNavn + " WHERE " + TableId + " = @id"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
+                cmd.Parameters.AddWithValue("@id", id); // Dit parameter som laver sikkerhed for sql injection.
 
-                conn.Open();
-                var reader = cmd.ExecuteReader();
+                conn.Open(); // Åbner din connection så så du kan Execute og få din data ud.
+                var reader = cmd.ExecuteReader();  // Gør hvad du fortæller den skal gøre som står i din CommandText.
                 if (reader.Read())
                 {
                     // TODO Tilføj alle textboxe!
                     TextBoxNavn.Text = reader[""].ToString(); // Her ændre du Textboxen som skal have indholdet som du henter, og ændre din reader. Du kopirer denne linje for flerer.
                 }
-                conn.Close();
+                conn.Close(); // Lukker din connection så den ved at du ikke skal bruge mere data.
 
             }
             catch (Exception ex)
@@ -174,18 +176,21 @@ public partial class Template : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-//            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
-//            SqlDataAdapter adapter = new SqlDataAdapter(@"
-//            SELECT * FROM " + TableNavn + " ORDER BY " + TableId + " DESC", conn);
-//            DataTable items = new DataTable();
-//            adapter.Fill(items);
+            //SqlCommand cmd = new SqlCommand();
+            //SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring
+            //cmd.Connection = conn; // Standard connection til din database.
+            //cmd.CommandText = "SELECT rolle_id, rolle_title FROM rolle ORDER BY rolle_adgang DESC"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
+            //conn.Open(); // Åbner din connection så så du kan Execute og få din data ud.
+            //var reader = cmd.ExecuteReader(); // Gør hvad du fortæller den skal gøre som står i din CommandText. Her sætter vi noget data i en DataReader.
+            //DataTable items = new DataTable(); // Opretter et DataTable som vi kan bruge til at sætte dataen i DropDown menuen.
+            //items.Load(reader); // Indsætter dataen i dit DataTable.
+            //conn.Close(); // Lukker din connection så den ved at du ikke skal bruge mere data.
 
-//            DropDownList_Emne.DataTextField = "emne_navn";
-//            DropDownList_Emne.DataValueField = "emne_id";
-
-//            DropDownList_Emne.DataSource = items;
-//            DropDownList_Emne.DataBind();
-//            DropDownList_Emne.Items.Insert(0, new ListItem("Vælg Emne", "0"));
+            //DropDownList_Role.DataValueField = "rolle_id"; // Fortæller at den skal bruge dens id som value i DropDown menuen.
+            //DropDownList_Role.DataTextField = "rolle_title"; // Fortæller at den skal bruge dens title som text i DropDown menuen.
+            //DropDownList_Role.DataSource = items; // sætter dens DataSource til at være det DataTable som vi har oprettet til at være dens data.
+            //DropDownList_Role.DataBind();
+            //DropDownList_Role.Items.Insert(0, new ListItem("Vælg Rolle", "0")); // Sætter dens første punkt i DropDown menuen.
         }
     }
 
@@ -196,9 +201,9 @@ public partial class Template : System.Web.UI.Page
     {
         try
         {
-            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString);
+            SqlConnection conn = new SqlConnection(MyConnectionString.ConnectionString); // MyConnectionString.ConnectionString er fra en class som gør det lettere og skrive sin connectionstring.
             SqlCommand cmd = new SqlCommand();
-            cmd.Connection = conn;
+            cmd.Connection = conn; // Standard connection til din database.
 
             switch (Request.QueryString["action"])
             {
@@ -206,24 +211,24 @@ public partial class Template : System.Web.UI.Page
                 case "add":
                     // Sådan skal det se ud med mere end 1.
                     // (Navn, Efternavn) VALUES (@Navn, @Efternavn)
-                    cmd.CommandText = "INSERT INTO " + TableNavn + " (bruger_navn,) VALUES (@bruger_navn, )";
+                    cmd.CommandText = "INSERT INTO " + TableNavn + " (bruger_navn,) VALUES (@bruger_navn, )"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
                     break;
 
                 case "edit":
                     // Sådan skal det se ud med mere end 1.
                     // Navn = @Navn, Efternavn = @Efternavn
-                    cmd.CommandText = "UPDATE " + TableNavn + " SET bruger_navn = @bruger_navn, WHERE " + TableId + " = @id";
-                    cmd.Parameters.AddWithValue("@id", Request.QueryString["id"]);
+                    cmd.CommandText = "UPDATE " + TableNavn + " SET bruger_navn = @bruger_navn, WHERE " + TableId + " = @id"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
+                    cmd.Parameters.AddWithValue("@id", Request.QueryString["id"]); // Dit parameter som laver sikkerhed for sql injection.
                     break;
             }
             // Husk og tilføje parameter. Husk du kan bruge samme parameter til add og edit.
             // Jeg bruger AddWithValue fordi så behøver du ikke og fortælle den om det er en int/string.
-            cmd.Parameters.AddWithValue("@bruger_navn", TextBoxNavn.Text);
+            cmd.Parameters.AddWithValue("@bruger_navn", TextBoxNavn.Text); // Dit parameter som laver sikkerhed for sql injection.
 
 
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            conn.Open(); // Åbner din connection så så du kan Execute og få din data ud.
+            cmd.ExecuteNonQuery();  // Gør hvad du fortæller den skal gøre som står i din CommandText.
+            conn.Close(); // Lukker din connection så den ved at du ikke skal bruge mere data.
             Session["besked"] = Navn + " blev gemt";
             Response.Redirect(ResolveClientUrl("~/Admin/" + SideNavn + ".aspx"));
         }
