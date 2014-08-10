@@ -37,7 +37,7 @@ public partial class Login : System.Web.UI.Page
             SELECT bruger_id, bruger_navn, bruger_email, bruger_password, bruger_salt, rolle_adgang
             FROM bruger INNER JOIN rolle ON rolle_id = fk_rolle_id
             WHERE 
-                bruger_email = @bruger_email";
+                bruger_email = @bruger_email"; // Din CommandText hvor du fortæller hvad den skal loade fra db.
         cmd.Parameters.AddWithValue("@bruger_email", TextBox_Email.Text);
 
         conn.Open();
