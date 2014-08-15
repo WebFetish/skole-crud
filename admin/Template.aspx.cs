@@ -6,11 +6,11 @@ using System.Web.UI.WebControls;
 
 public partial class Template : System.Web.UI.Page
 {
-    public string TableNavn = ""; // Dit table navn.
-    public string Navn = ""; // Dette er hvad der bliver oprettet/slettet ex. "Personen" blev oprettet.
-    public string TableId = ""; // navnet på dit table id, ex når du skal slettet et item.
-    public string SideNavn = ""; // Sidens navn så når man bliver redirected at du kommer på den rigtige side.
-    public int RolleAdgang = 100; // Om brugeren har adgang til at tilgå denne side, du har angivet denne værdi i din db.
+    public const string TableNavn = ""; // Dit table navn.
+    public const string Navn = ""; // Dette er hvad der bliver oprettet/slettet ex. "Personen" blev oprettet.
+    public const string TableId = ""; // navnet på dit table id, ex når du skal slettet et item.
+    public const string SideNavn = ""; // Sidens navn så når man bliver redirected at du kommer på den rigtige side.
+    public const int RolleAdgang = 100; // Om brugeren har adgang til at tilgå denne side, du har angivet denne værdi i din db.
 
     /// <summary>
     /// Først skal du tilføje dine textboxe som du skal bruge til at tilføje tingen du vil lave crud til.
